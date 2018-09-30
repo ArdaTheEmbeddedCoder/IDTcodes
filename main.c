@@ -42,7 +42,7 @@ int main()
         case BINARY:
             convertBinary();
             break;
-        
+
         case SHIFT_BINARY:
         case CAESAR_CIPHER:{
             int increase = 0;
@@ -119,7 +119,7 @@ int main()
             fclose (fp);
         }
         case EXIT:
-        default: 
+        default:
         break;
     }
 
@@ -129,6 +129,7 @@ int main()
 
 void convertBinary()
 {
+        FILE *fp;
         char msg[500];
          int loop=0;
         // READY_MSG
@@ -140,12 +141,12 @@ void convertBinary()
         }
 
         fclose (fp);
-        int bin[loop], dolan = loop-1;
-        
-        while (dolan>=0)
+        int bin[loop], counter = loop-1;
+
+        while (counter>=0)
         {
-            bin[dolan] = msg[dolan];
-            dolan--;
+            bin[counter] = msg[counter];
+            counter--;
         }
 
         fp = fopen ("text.txt", "w");
