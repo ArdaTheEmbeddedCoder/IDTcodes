@@ -70,6 +70,9 @@ int bin_conv (int number, FILE *fi_po){
             fprintf (fi_po, "%d", output[loop]);
         }
         fclose (fi_po);
+        for (int loop=7;loop>=0;loop--){
+            output[loop] = 0;
+        }
         return 0;
     }
     else{

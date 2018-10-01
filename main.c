@@ -2,18 +2,17 @@
 #include <stdlib.h>
 #include "endec.h"
 #include <ctype.h>
+
 #define BINARY 1
 #define SHIFT_BINARY 2
 #define CAESAR_CIPHER 3
-#define ANTI_BRUTE_FORCE 4
-#define BRUTE_FORCE_ATTACK 5
+#define ANTI_BRUTE 4
+#define BRUTE_FORCE 5
 #define EXIT 6
 
 /**
 @author Arda
 */
-void convertBinary();
-
 int main()
 {
     // ENDEC //
@@ -37,14 +36,34 @@ int main()
             error = 1;
     }
 
-    switch (choice){
-
+    switch (choice)
+    {
         case BINARY:
-            convertBinary();
+            {
+            char msg[500];
+            int loop=0;
+            // READY_MSG
+            fp = fopen ("text.txt", "r");
+            while (!feof(fp)){
+                msg[loop] = fgetc(fp);
+                loop++;
+            }
+            fclose (fp);
+            int bin[loop], dolan = loop-1;
+            while (dolan>=0){
+                bin[dolan] = msg[dolan];
+                dolan--;
+            }
+            fp = fopen ("text.txt", "w");
+            fclose (fp);
+            for (int looper=0;looper<loop;looper++){
+                bin_conv (bin[looper], fp);
+            }
             break;
-
+        }
         case SHIFT_BINARY:
-        case CAESAR_CIPHER:{
+        case CAESAR_CIPHER:
+            {
             int increase = 0;
             char msg[500];
             if (!ready_msg()){
@@ -76,8 +95,9 @@ int main()
             puts ("Encoding process terminated successfully.");
             break;
         }
-        case ANTI_BRUTE_FORCE:
-        case BRUTE_FORCE_ATTACK:{
+        case ANTI_BRUTE:
+        case BRUTE_FORCE:
+            {
             char folder[20] = {0}, temp[500];
             if (!ready_msg()){
                 puts ("Incorrect keyword");
@@ -119,41 +139,7 @@ int main()
             fclose (fp);
         }
         case EXIT:
-        default:
-        break;
+        default: break;
     }
-
-
     return 0;
-}
-
-void convertBinary()
-{
-        FILE *fp;
-        char msg[500];
-         int loop=0;
-        // READY_MSG
-       fp = fopen ("text.txt", "r");
-        while (!feof(fp))
-        {
-           msg[loop] = fgetc(fp);
-           loop++;
-        }
-
-        fclose (fp);
-        int bin[loop], counter = loop-1;
-
-        while (counter>=0)
-        {
-            bin[counter] = msg[counter];
-            counter--;
-        }
-
-        fp = fopen ("text.txt", "w");
-        fclose (fp);
-
-        for (int looper=0;looper<8;looper++)
-        {
-                bin_conv (bin[looper], fp);
-        }
 }
